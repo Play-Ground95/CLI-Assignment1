@@ -1,6 +1,7 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class BankApp {
+public class T {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class BankApp {
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
 
         String[] account = new String[0];
-        String []ID =new String[0];
+        String[] ID = new String[0];
         String screen = DASHBOARD;
 
         do {
@@ -78,9 +79,18 @@ public class BankApp {
                     int deposit;
                     boolean valid;
 
-                    //set ID
+                    // set ID
                     System.out.printf("\tNew A/C ID: SDB-%05d \n", (account.length + 1));
-                    
+
+                    String[] newId = new String[account.length + 1];
+                    for (int i = 0; i < ID.length; i++) {
+                        newId[i] = ID[i];
+                        newId[i] = ID[i];
+                    }
+
+                    ID = newId;
+
+                    //System.out.println(Arrays.toString(ID));
                     // System.out.print("\tEnter New Customer ID: "); // C-ac
                     // id = SCANNER.nextLine().toUpperCase().strip();
 
@@ -103,6 +113,7 @@ public class BankApp {
                             }
                         }
                     } while (!valid);
+
                     String[] newAcNames = new String[account.length + 1];
                     for (int i = 0; i < account.length; i++) {
                         newAcNames[i] = account[i];
@@ -112,18 +123,18 @@ public class BankApp {
                     account = newAcNames;
 
                     // Initial Deposit
-                //     do{
-                //     System.out.println();
-                //     System.out.print("Enter your Deposited Amount Here :");
-                //     deposit = SCANNER.nextInt();
+                    // do{
+                    // System.out.println();
+                    // System.out.print("Enter your Deposited Amount Here :");
+                    // deposit = SCANNER.nextInt();
 
-                //     if (deposit > 5000) {
-                //         System.out.println("Initial Deposit :" + deposit);
-                //     } else {
-                        
-                //         System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
-                //     }
-                // }while(!valid);
+                    // if (deposit > 5000) {
+                    // System.out.println("Initial Deposit :" + deposit);
+                    // } else {
+
+                    // System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
+                    // }
+                    // }while(!valid);
 
                     System.out.println();
                     System.out.printf(SUCCESS_MSG,
