@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BankApp {
@@ -22,7 +23,8 @@ public class BankApp {
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
 
         String[] account = new String[0];
-        String []ID =new String[0];
+        int[] ID = new int[0];
+        int[] DEPO = new int[0];
         String screen = DASHBOARD;
 
         do {
@@ -73,16 +75,23 @@ public class BankApp {
                     break;
 
                 case ADD_ACCOUNT:
-                    String id;
+                    int id = account.length;
                     String name;
                     int deposit;
                     boolean valid;
 
-                    //set ID
+                    // set ID
                     System.out.printf("\tNew A/C ID: SDB-%05d \n", (account.length + 1));
+
+                    int[] newId = new int[account.length + 1];
+                    for (int i = 0; i < ID.length; i++) {
+                        newId[i] = ID[i];
+
+                    }
+                    newId[newId.length - 1] = id;
+                    ID = newId;
+
                     
-                    // System.out.print("\tEnter New Customer ID: "); // C-ac
-                    // id = SCANNER.nextLine().toUpperCase().strip();
 
                     // Name Validation
                     do {
@@ -103,31 +112,46 @@ public class BankApp {
                             }
                         }
                     } while (!valid);
+
                     String[] newAcNames = new String[account.length + 1];
                     for (int i = 0; i < account.length; i++) {
                         newAcNames[i] = account[i];
-                        newAcNames[i] = account[i];
-                    }
 
+                    }
+                    newAcNames[newAcNames.length - 1] = name;
                     account = newAcNames;
 
-                    // Initial Deposit
-                //     do{
-                //     System.out.println();
-                //     System.out.print("Enter your Deposited Amount Here :");
-                //     deposit = SCANNER.nextInt();
+                    // // Initial Deposit
 
-                //     if (deposit > 5000) {
-                //         System.out.println("Initial Deposit :" + deposit);
-                //     } else {
-                        
-                //         System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
-                //     }
-                // }while(!valid);
+                    do {
+                        valid = true;
+                        System.out.println();
+                        System.out.print("Enter your Deposited Amount Here :");
+                        deposit = SCANNER.nextInt();
+                        SCANNER.nextLine();
 
-                    System.out.println();
+                        if (deposit > 5000) {
+                            System.out.println("Initial Deposit :" + deposit);
+                            System.out.println();
+                            
+                        } else {
+
+                            System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
+                            valid=false;
+                            continue;
+                        }
+                    } while (!valid);
+
+                    int[] NewDepo = new int[DEPO.length + 1];
+                    for (int i = 0; i < DEPO.length; i++) {
+
+                        NewDepo[i] = DEPO[i];
+                    }
+                    NewDepo[NewDepo.length - 1] = deposit;
+                    DEPO = NewDepo;
+
                     System.out.printf(SUCCESS_MSG,
-                            String.format("%s:%s has been saved successfully", account.length, name));
+                                    String.format("%s:%s has been saved successfully", account.length, name));
                     System.out.print("\tDo you want to continue adding (Y/n)? ");
                     if (SCANNER.nextLine().strip().toUpperCase().equals("Y"))
                         continue;

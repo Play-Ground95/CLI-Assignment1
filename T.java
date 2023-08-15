@@ -23,7 +23,8 @@ public class T {
         final String SUCCESS_MSG = String.format("\t%s%s%s\n", COLOR_GREEN_BOLD, "%s", RESET);
 
         String[] account = new String[0];
-        String[] ID = new String[0];
+        int[] ID = new int[0];
+        int[] DEPO = new int[0];
         String screen = DASHBOARD;
 
         do {
@@ -74,7 +75,7 @@ public class T {
                     break;
 
                 case ADD_ACCOUNT:
-                    String id;
+                    int id = account.length;
                     String name;
                     int deposit;
                     boolean valid;
@@ -82,17 +83,15 @@ public class T {
                     // set ID
                     System.out.printf("\tNew A/C ID: SDB-%05d \n", (account.length + 1));
 
-                    String[] newId = new String[account.length + 1];
+                    int[] newId = new int[account.length + 1];
                     for (int i = 0; i < ID.length; i++) {
                         newId[i] = ID[i];
-                        newId[i] = ID[i];
-                    }
 
+                    }
+                    newId[newId.length - 1] = id;
                     ID = newId;
 
-                    //System.out.println(Arrays.toString(ID));
-                    // System.out.print("\tEnter New Customer ID: "); // C-ac
-                    // id = SCANNER.nextLine().toUpperCase().strip();
+                    
 
                     // Name Validation
                     do {
@@ -117,28 +116,38 @@ public class T {
                     String[] newAcNames = new String[account.length + 1];
                     for (int i = 0; i < account.length; i++) {
                         newAcNames[i] = account[i];
-                        newAcNames[i] = account[i];
-                    }
 
+                    }
+                    newAcNames[newAcNames.length - 1] = name;
                     account = newAcNames;
 
-                    // Initial Deposit
-                    // do{
-                    // System.out.println();
-                    // System.out.print("Enter your Deposited Amount Here :");
-                    // deposit = SCANNER.nextInt();
+                    // // Initial Deposit
 
-                    // if (deposit > 5000) {
-                    // System.out.println("Initial Deposit :" + deposit);
-                    // } else {
+                    do {
+                        System.out.println();
+                        System.out.print("Enter your Deposited Amount Here :");
+                        deposit = SCANNER.nextInt();
+                        SCANNER.nextLine();
 
-                    // System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
-                    // }
-                    // }while(!valid);
+                        if (deposit > 5000) {
+                            System.out.println("Initial Deposit :" + deposit);
+                            System.out.println();
+                            System.out.printf(SUCCESS_MSG,
+                                    String.format("%s:%s has been saved successfully", account.length, name));
+                        } else {
 
-                    System.out.println();
-                    System.out.printf(SUCCESS_MSG,
-                            String.format("%s:%s has been saved successfully", account.length, name));
+                            System.out.printf(ERROR_MSG, "Not Sufficient Amount In Your A/C");
+                        }
+                    } while (!valid);
+
+                    int[] NewDepo = new int[DEPO.length + 1];
+                    for (int i = 0; i < DEPO.length; i++) {
+
+                        NewDepo[i] = DEPO[i];
+                    }
+                    NewDepo[NewDepo.length - 1] = deposit;
+                    DEPO = NewDepo;
+
                     System.out.print("\tDo you want to continue adding (Y/n)? ");
                     if (SCANNER.nextLine().strip().toUpperCase().equals("Y"))
                         continue;
